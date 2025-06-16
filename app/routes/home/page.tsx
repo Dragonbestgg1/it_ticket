@@ -65,7 +65,7 @@ export default function Home() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch("/api/ticketStats");
+        const response = await fetch("/api/homeStats");
         const data = await response.json();
         setTicketStats(data);
       } catch (error) {
@@ -77,7 +77,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={style.main} ref={containerRef}>
+    <div className={`${style.main}`} ref={containerRef}>
       <div ref={headerRef} className={`${style.lazy}`}>
         <Header />
       </div>

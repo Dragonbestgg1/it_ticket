@@ -43,11 +43,22 @@
     width: 40%;
     padding: 10px;
     border: none;
+    border-bottom: 3px solid #ffffff;
     border-radius: 5px;
-    background-color: #1a1a1a;
+    background: none;
     color: #ffffff;
     font-size: 1rem;
     cursor: text;
+    transition: width 0.3s ease;
+}
+
+.input:hover{
+    width: 45%;
+}
+
+.input:focus {
+    width: 45%;
+    outline: none;
 }
 
 .button {
@@ -87,7 +98,7 @@
     }
 
     .input {
-        background-color: #e0e0e0;
         color: #000000;
+        border-bottom: 3px solid #000000;
     }
 }
