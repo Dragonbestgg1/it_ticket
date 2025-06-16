@@ -1,4 +1,4 @@
-.main{
+.main {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -6,11 +6,99 @@
     align-items: center;
     justify-content: flex-start;
     background-color: #ffffff;
-    padding: 30px;
+    gap: 40px;
 }
 
-@media (prefers-color-scheme: dark){
-    .main{
+.fadeIn {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.title {
+    color: #0a0a0a;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.color {
+    color: #357ABD;
+}
+
+.statsDetails {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    padding-left: 50px;
+    gap: 10px;
+}
+
+.statsTitle {
+    color: #0a0a0a;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.fadeContainer {
+    position: relative;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+}
+
+.details{
+    color: #0a0a0a;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.fade {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .main {
         background-color: #0a0a0a;
+    }
+
+    .title {
+        color: #ffffff;
+    }
+
+    .statsTitle {
+        color: #ffffff;
+    }
+
+    .statsDetails {
+        color: #ffffff;
+    }
+    .details {
+        color: #ffffff;
     }
 }

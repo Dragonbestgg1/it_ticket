@@ -1,0 +1,35 @@
+.main{
+    width: 100vw;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #0a0a0a;
+    padding: 30px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.route{
+    color: #ffffff;
+    font-size: 20px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+.route:hover{
+    color: #f0f0f0;
+}
+
+@media (prefers-color-scheme: dark){
+    .main{
+        background-color: #ffffff;
+    }
+    .route{
+        color: #0a0a0a;
+    }
+    .route:hover{
+        color: #357ABD;
+    }
+}

@@ -1,29 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import styles from "../../styles/page.module.css";
+import dynamic from "next/dynamic";
+import style from "../../styles/page.module.css";
+
+// Lazy-load Header component
+const Header = dynamic(() => import("../../components/ui/Header"), { ssr: false });
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-   const [ticketStats, setTicketStats] = useState({ totalTickets: 0, openTickets: 0 });
+  const [ticketStats, setTicketStats] = useState<{ totalTickets: number; openTickets: number } | null>(null);
+  const [showTotalTickets, setShowTotalTickets] = useState(true); // Toggles between stats
 
-  const handleUpload = async () => {
-    setLoading(true);
-    setMessage("");
+  // Toggle between totalTickets and openTickets every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowTotalTickets((prev) => !prev); // Switch between stats
+    }, 7000);
 
-    try {
-      const response = await fetch("/api/saveData", { method: "POST" });
-
-      const data = await response.json();
-      setMessage(data.message);
-    } catch (error) {
-      setMessage("Error uploading data.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -40,11 +35,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.main}>
-      <h1 className={styles.title}>Welcome to My Page</h1>
-      <p>Total Tickets: {ticketStats.totalTickets}</p>
-      <p>Open Tickets: {ticketStats.openTickets}</p>
+    <div className={style.main}>
+      <Header />
+      <h1 className={style.title}><p className={style.color}>IT</p> tickets</h1>
+      <div className={style.statsDetails}>
+        <p className={`${style.statsTitle}`}>Stats details:</p>
+        {ticketStats && (
+          <div className={style.fadeContainer}>
+            <div className={`${style.fade} ${showTotalTickets ? style.visible : style.hidden}`}>
+              <p className={`${style.details}`}>Total Tickets: {ticketStats.totalTickets}</p>
+            </div>
 
+            <div className={`${style.fade} ${showTotalTickets ? style.hidden : style.visible}`}>
+              <p className={`${style.details}`}>Open Tickets: {ticketStats.openTickets}</p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
