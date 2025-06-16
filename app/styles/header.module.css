@@ -17,6 +17,7 @@
     text-decoration: none;
     transition: 0.3s ease;
     font-weight: bold;
+    cursor: pointer;
 }
 .route:hover{
     color: #f0f0f0;

@@ -11,6 +11,7 @@ export async function POST(req: NextRequest) {
 
     const parsedData = Papa.parse(csvData, { header: true, skipEmptyLines: true }).data;
 
+    // format the data to match the MongoDB schema
     const formattedData = parsedData.map((item: any) => ({
       id: Number(item.id),
       client_name: item.client_name,
