@@ -87,52 +87,53 @@ export default function Statistics() {
         return { priorityCounts, overdueTicketCounts, recentTicketCounts, closedPriorityCounts, activeTickets, closedTickets };
     }, [ticketData]);
 
+    const priorityOrder = ["low", "medium", "high", "critical"]; // Ensure consistent sorting
+
+    const sortedPriorityCounts = priorityOrder.map((priority) => priorityCounts[priority] || 0);
+    const sortedOverdueCounts = priorityOrder.map((priority) => overdueTicketCounts[priority] || 0);
+    const sortedRecentCounts = priorityOrder.map((priority) => recentTicketCounts[priority] || 0);
+    const sortedClosedCounts = priorityOrder.map((priority) => closedPriorityCounts[priority] || 0);
+
     // Charts
     const priorityChartData = useMemo(() => ({
-        labels: Object.keys(priorityCounts),
+        labels: priorityOrder,
         datasets: [
             {
                 label: "Number of Tickets by Priority",
-                data: Object.values(priorityCounts),
+                data: sortedPriorityCounts,
                 backgroundColor: ["green", "yellow", "orange", "red"],
             },
         ],
     }), [priorityCounts]);
 
     const overdueChartData = useMemo(() => ({
-        labels: Object.keys(overdueTicketCounts),
+        labels: priorityOrder,
         datasets: [
             {
-                label: "Overdue Tickets by Priority (>5 Days Old)",
-                data: Object.values(overdueTicketCounts),
+                label: "Overdue Tickets by Priority (Older than 5 Days Old)",
+                data: sortedOverdueCounts,
                 backgroundColor: ["green", "yellow", "orange", "red"],
             },
         ],
     }), [overdueTicketCounts]);
 
     const recentChartData = useMemo(() => ({
-        labels: Object.keys(recentTicketCounts),
+        labels: priorityOrder,
         datasets: [
             {
                 label: "Recently Updated Tickets by Priority (Last 5 Days)",
-                data: Object.values(recentTicketCounts),
+                data: sortedRecentCounts,
                 backgroundColor: ["green", "yellow", "orange", "red"],
             },
         ],
     }), [recentTicketCounts]);
 
     const closedVsOpenChartData = useMemo(() => ({
-        labels: ["Open Tickets", "Closed - Low", "Closed - Medium", "Closed - High", "Closed - Critical"],
+        labels: ["Open Tickets", ...priorityOrder.map((priority) => `Closed - ${priority}`)],
         datasets: [
             {
                 label: "Closed vs Open Tickets (Sorted by Priority)",
-                data: [
-                    activeTickets.length,
-                    closedPriorityCounts["low"] || 0,
-                    closedPriorityCounts["medium"] || 0,
-                    closedPriorityCounts["high"] || 0,
-                    closedPriorityCounts["critical"] || 0,
-                ],
+                data: [activeTickets.length, ...sortedClosedCounts],
                 backgroundColor: ["green", "lightgreen", "yellow", "orange", "red"],
             },
         ],

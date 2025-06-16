@@ -29,13 +29,17 @@
 
 .statsAlignment {
     display: flex;
-    width: 50vw;
+    width: 100vw;
     height: 40vh;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 80px;
+    gap: 60px;
+}
+
+.chartContainer{
+    width: 35vw;
 }
 
 @media (prefers-color-scheme: dark) {
