@@ -30,7 +30,6 @@ interface Ticket {
 
 export default function Statistics() {
     const [ticketData, setTicketData] = useState<Ticket[]>([]);
-    const headerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         let isMounted = true;
@@ -141,12 +140,10 @@ export default function Statistics() {
 
     return (
         <div className={`${style.main}`}>
-            <div ref={headerRef} className={`${style.lazy} ${style.visible}`}>
-                <Header />
-            </div>
+            <Header />
 
             <h2 className={`${style.statsTitle}`}>Ticket Statistics</h2>
-            <div className={`${style.statsAlignment} ${style.lazy} ${style.visible}`}>
+            <div className={`${style.statsAlignment}`}>
                 {/* Priority-Based Ticket Distribution */}
                 <div className={style.chartContainer}>
                     <h3>Tickets by Priority</h3>
