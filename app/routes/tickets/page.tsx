@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import style from "../../styles/tickets.module.css";
 import Header from "@/app/components/ui/Header";
+import DOMPurify from "dompurify";
 
 interface Ticket {
     id: number;
@@ -37,15 +38,21 @@ export default function Statistics() {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
     const [confirmDeleteModalIsOpen, setConfirmDeleteModalIsOpen] = useState(false);
 
+    const sanitizeInput = (input: string) => {
+        return DOMPurify.sanitize(input);
+    };
 
     const validateInputs = () => {
         let newErrors: any = {};
 
-        if (!newTicket.client_name.trim()) {
+        newTicket.client_name = sanitizeInput(newTicket.client_name.trim());
+        newTicket.title = sanitizeInput(newTicket.title.trim());
+
+        if (!newTicket.client_name) {
             newErrors.client_name = "Client name is required.";
         }
 
-        if (!newTicket.title.trim()) {
+        if (!newTicket.title) {
             newErrors.title = "Title is required.";
         }
 
@@ -172,8 +179,8 @@ export default function Statistics() {
                 const updatedTickets = await updatedResponse.json();
                 setTicketData(updatedTickets.sort((a: Ticket, b: Ticket) => a.id - b.id));
 
-                setEditModalIsOpen(false); // Close edit modal
-                setConfirmDeleteModalIsOpen(false); // Close delete confirmation modal
+                setEditModalIsOpen(false);
+                setConfirmDeleteModalIsOpen(false);
             } else {
                 console.error("Failed to delete ticket.");
             }

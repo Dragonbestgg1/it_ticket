@@ -1,5 +1,6 @@
-"use client";
+"use client"
 
+import DOMPurify from "dompurify";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "../../styles/login.module.css";
@@ -10,18 +11,25 @@ export default function LoginPage() {
     const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
     const router = useRouter();
 
+    const sanitizeInput = (input: string) => {
+        return DOMPurify.sanitize(input);
+    };
+
     const validateForm = () => {
         let newErrors: { email?: string; password?: string } = {};
 
-        if (!email.trim()) {
+        const cleanEmail = sanitizeInput(email.trim());
+        const cleanPassword = sanitizeInput(password.trim());
+
+        if (!cleanEmail) {
             newErrors.email = "Email is required.";
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
+        } else if (!/\S+@\S+\.\S+/.test(cleanEmail)) {
             newErrors.email = "Please enter a valid email address.";
         }
 
-        if (!password.trim()) {
+        if (!cleanPassword) {
             newErrors.password = "Password is required.";
-        } else if (password.length < 6) {
+        } else if (cleanPassword.length < 6) {
             newErrors.password = "Password must be at least 6 characters.";
         }
 
@@ -36,7 +44,7 @@ export default function LoginPage() {
             return;
         }
 
-        console.log("Logging in with:", { email, password });
+        console.log("Logging in with sanitized inputs:", { email, password });
         router.push("/routes/home");
     };
 
@@ -51,7 +59,7 @@ export default function LoginPage() {
                         type="email"
                         id="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(sanitizeInput(e.target.value))}
                         className={style.input}
                     />
                     {errors.email && <p className={style.error}>{errors.email}</p>}
@@ -63,7 +71,7 @@ export default function LoginPage() {
                         type="password"
                         id="password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setPassword(sanitizeInput(e.target.value))}
                         className={style.input}
                     />
                     {errors.password && <p className={style.error}>{errors.password}</p>}
