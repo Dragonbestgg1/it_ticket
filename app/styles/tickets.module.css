@@ -29,35 +29,58 @@
     border-collapse: collapse;
     table-layout: fixed;
     font-family: Arial, sans-serif;
-    background-color: black;
-    color: white;
+    background-color: #f0f0f0;
+    color: #0a0a0a;
 }
 
 .table th,
 .table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
 }
 
 .table th {
     background-color: #222;
     font-weight: bold;
+    text-align: center;
     position: sticky;
     top: 0;
     z-index: 2;
+    border-bottom: 1px solid #0a0a0a;
+    border-top: 1px solid #0a0a0a;
+}
+
+.headerCell {
+    background-color: #f0f0f0;
+    color: #0a0a0a;
+    position: relative;
+    z-index: 3;
+    border-bottom: 1px solid #0a0a0a;
+    padding: 20px;
 }
 
 .table tbody tr:nth-child(even) {
-    background-color: #333;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #0a0a0a;
 }
 
 .table tbody tr:nth-child(odd) {
-    background-color: black;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #0a0a0a;
 }
 
 .table tbody tr:hover {
-    background-color: #444;
+    color: #357ABD;
+}
+
+.table td {
+    padding: 15px;
+    border-bottom: 1px solid #0a0a0a;
 }
 
 .input {
@@ -69,7 +92,6 @@
     outline: none;
     text-align: left;
     font-weight: bold;
-    border: 1px solid transparent;
 }
 
 .pointer {
@@ -91,22 +113,194 @@
 }
 
 .button {
-    position: absolute;
-    top: 100px;
-    left: 100px;
+    position: static;
+    transform: translateY(-60px) translateX(220px);
     padding: 10px;
-    background: none;
+    background-color: rgba(53, 122, 189, 0.6);
     border: none;
-    color: #0a0a0a;
+    color: #f0f0f0;
     font-size: 20px;
     font-weight: bolder;
-    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+    border-radius: 15px;
 }
 
 .button:hover {
     cursor: pointer;
-    color: #357ABD;
+    background-color: rgba(53, 122, 189, 1);
 }
+
+.iconWrapper {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.iconSvg {
+    width: 16px;
+    height: 16px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.filterToggleSvg {
+    position: static;
+    transform: translateY(-20px) translateX(93vw);
+    width: 24px;
+    height: 24px;
+    color: #0a0a0a;
+    cursor: pointer;
+}
+
+.filterSvg {
+    width: 24px;
+    height: 24px;
+    color: #0a0a0a;
+    cursor: pointer;
+}
+
+.filterContainer {
+    position: absolute;
+    top: 150px;
+    left: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    z-index: 10;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+}
+
+.filterInput {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.customSelectWrapper {
+    position: relative;
+    width: 160px;
+}
+
+.customSelect {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arrow {
+    margin-left: 8px;
+}
+
+.customOptions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    background-color: white;
+    z-index: 10;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+    padding: 6px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #0a0a0a;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+}
+
+.filterField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    min-width: 160px;
+}
+
+.filterLabel {
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 8px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.dotStatus_open {
+    background-color: #4caf50;
+}
+
+.dotStatus_closed {
+    background-color: #f44336;
+}
+
+.dotStatus_in_progress {
+    background-color: #ff9800;
+}
+
+.dotPriority_low {
+    background-color: #4caf50;
+}
+
+.dotPriority_medium {
+    background-color: #ffc107;
+}
+
+.dotPriority_high {
+    background-color: #ff5722;
+}
+
+.dotPriority_critical {
+    background-color: #d32f2f;
+}
+
+.statusCell,
+.priorityCell {
+    white-space: nowrap;
+}
+
+.clearFiltersButton {
+    padding: 8px 16px;
+    background-color: rgba(211, 47, 47, 0.6);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+}
+
+.clearFiltersButton:hover {
+    background-color: rgba(211, 47, 47, 1);
+}
+
 
 .modal {
     position: fixed;
@@ -201,7 +395,7 @@
     margin-top: 10px;
 }
 
-.modalConfirm{
+.modalConfirm {
     position: fixed;
     z-index: 9999;
     top: 50%;
@@ -224,8 +418,8 @@
     }
 
     .table {
-        background-color: white;
-        color: black;
+        background-color: #0a0a0a;
+        color: #f0f0f0;
     }
 
     .title {
@@ -233,19 +427,33 @@
     }
 
     .table th {
-        background-color: #f4f4f4;
+        background-color: #0a0a0a;
+        color: #f0f0f0;
+    }
+
+    .table td {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .headerCell {
+        background-color: #0a0a0a;
+        color: #f0f0f0;
+        z-index: 3;
+        border-bottom: 1px solid #f0f0f0;
+        border-top: 1px solid #f0f0f0;
+        padding: 20px;
     }
 
     .table tbody tr:nth-child(even) {
-        background-color: #ddd;
+        background-color: #0a0a0a;
     }
 
     .table tbody tr:nth-child(odd) {
-        background-color: white;
+        background-color: #0a0a0a;
     }
 
     .table tbody tr:hover {
-        background-color: #bbb;
+        color: #357ABD;
     }
 
     .input {
@@ -256,24 +464,73 @@
         color: #0a0a0a;
     }
 
+    .iconSvg {
+        color: inherit;
+    }
+
     .button {
         color: #ffffff;
     }
+
     .modal {
         background-color: #222;
     }
+
     .modalTitle {
         color: #ffffff;
     }
+
     .modalInput {
         color: #ffffff;
         border-bottom: 3px solid #ffffff;
         background-color: #222;
     }
-    .modalInput::placeholder{
+
+    .modalInput::placeholder {
         color: #ffffff;
     }
+
     .modalConfirm {
         background-color: #222;
+    }
+
+    .filterSvg {
+        color: #ffffff;
+    }
+
+    .filterToggleSvg {
+        color: #ffffff;
+    }
+
+    .filterContainer {
+        background-color: #222;
+        color: #ffffff;
+    }
+
+    .filterLabel {
+        color: #ffffff;
+    }
+
+    .filterInput {
+        background-color: #333;
+        color: #ffffff;
+        border: 1px solid #555;
+    }
+
+    .customSelect {
+        background-color: #333;
+        color: #ffffff;
+        border: 1px solid #555;
+    }
+
+    .customOptions {
+        background-color: #333;
+        color: #ffffff;
+        border: 1px solid #555;
+    }
+
+    .option {
+        color: #ffffff;
+        border-top: 1px solid #f0f0f0;
     }
 }
