@@ -211,7 +211,7 @@ export default function Home() {
           </div>
         </div>
         <div className={style.chartContainer}>
-          <h3>Tickets by Priority</h3>
+          <h3>Submitted tickets by priority</h3>
           <Bar data={priorityChartData} />
         </div>
       </div>

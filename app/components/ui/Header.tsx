@@ -2,14 +2,29 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import style from "../../styles/header.module.css";
 
 const Header = () => {
+    const pathname = usePathname();
+
+    const navLinks = [
+        { href: "/routes/home", label: "Home" },
+        { href: "/routes/tickets", label: "Tickets" },
+        { href: "/routes/statistics", label: "Statistics" },
+    ];
+
     return (
         <header className={style.main}>
-            <Link href="/routes/home" className={`${style.route}`}>Home</Link>
-            <Link href="/routes/tickets" className={`${style.route}`}>Tickets</Link>
-            <Link href="/routes/statistics" className={`${style.route}`}>Statistics</Link>
+            {navLinks.map(({ href, label }) => (
+                <Link
+                    key={href}
+                    href={href}
+                    className={`${style.route} ${pathname.startsWith(href) ? style.active : ""}`}
+                >
+                    {label}
+                </Link>
+            ))}
         </header>
     );
 };
