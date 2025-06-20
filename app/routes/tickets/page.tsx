@@ -123,6 +123,15 @@ export default function Statistics() {
         };
     }, []);
 
+    useEffect(() => {
+        if (modalIsOpen || editModalIsOpen || confirmDeleteModalIsOpen) {
+            setShowFilters(false);
+            setShowPriorityOptions(false);
+            setShowStatusOptions(false);
+        }
+    }, [modalIsOpen, editModalIsOpen, confirmDeleteModalIsOpen]);
+
+
     const filteredTickets = ticketData.filter((ticket) => {
         return (
             (clientNameFilter === "" || ticket.client_name.toLowerCase().includes(clientNameFilter.toLowerCase())) &&

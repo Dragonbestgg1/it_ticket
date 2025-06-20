@@ -114,7 +114,7 @@
 
 .button {
     position: static;
-    transform: translateY(-60px) translateX(220px);
+    transform: translateY(-30px) translateX(100px);
     padding: 10px;
     background-color: rgba(53, 122, 189, 0.6);
     border: none;
